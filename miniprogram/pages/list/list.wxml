@@ -1,0 +1,38 @@
+<view wx:if="{{menuList.length}}">
+  <block wx:for="{{ menuList }}" wx:key="_id">
+    <view class="list" data-id="{{item._id}}" data-name="{{item.menu_name}}">
+       <image src="{{ item.menu_img[0] }}" class="recipe-image"></image>
+       <!-- 基本信息 -->
+       <view class="list-info">
+          <view class="list-name">{{ item.menu_name}}</view>
+          <view class="list-info-userinfo">
+            <image src="{{ item.userInfo.avatarUrl}}"></image>
+            <text>{{ item.userInfo.nickName }}</text>
+          </view>
+          <view class="xing">
+            <!-- 星星 -->
+            <image wx:if="{{item.menu_collect===0}}" src="../../static/list/xing0.png"></image>
+            <image wx:elif="{{item.menu_collect>0&&item.menu_collect<=100}}" src="../../static/list/xing1.png"></image>
+            <image wx:elif="{{item.menu_collect>100&&item.menu_collect<=150}}" src="../../static/list/xing2.png"></image>
+            <image wx:elif="{{item.menu_collect>150&&item.menu_collect<=200}}" src="../../static/list/xing3.png"></image>
+            <image wx:elif="{{item.menu_collect>200&&item.menu_collect<=250}}" src="../../static/list/xing4.png"></image>
+            <image wx:else src="../../static/list/xing5.png"></image>
+          </view>
+          
+          <view class="number">
+            <view>  
+              <image src="../../static/list/followed.png"></image>
+              <text>{{ item.menu_collect}}</text>
+            </view>
+            <view>
+              <image src="../../static/list/airs.png"></image>
+              <text>{{ item.menu_view }}</text> 
+            </view>
+          </view>
+       </view>
+    </view>
+  </block>
+</view>
+<view wx:else>
+      暂无记录
+</view>

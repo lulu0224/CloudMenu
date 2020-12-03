@@ -1,0 +1,126 @@
+<view>
+  <!-- 顶部用户信息 -->
+  <view class="header">
+    <!-- 未登录页面 -->
+    <view class="no-login" wx:if="{{!isLogin}}">
+      <image src="../../static/my/logo1.jpg"></image>
+      <button size="mini" plain="{{ true }}" open-type="getUserInfo" bindgetuserinfo="_getUserInfo">登录</button>
+    </view>
+    <!-- 登录页面 -->
+    <view class="login" wx:else>
+      <image src="{{userInfo.avatarUrl}}" bindtap="_goCate"></image>
+      <view class="name">
+        {{userInfo.nickName}}
+      </view>
+    </view>
+  </view>
+  <!-- 内容显示 -->
+  <!-- 未登录时 -->
+  <view class="body-nologin" wx:if="{{!isLogin}}">
+    <view class="content-body-nologin">
+      <image src="../../static/my/nologin.jpg"></image>
+      <view>可以先去登录哦</view>
+    </view>
+  </view>
+  <!-- 登录之后 -->
+  <view wx:else>
+    <!-- 导航栏 -->
+  <view class="menu">
+    <view class="{{TabIndex==0?'active':''}}" data-index='0' bindtap="_selectTab">菜单</view>
+    <view class="{{TabIndex==1?'active':''}}" bindtap="_selectTab" data-index='1'>分类</view>
+    <view class="{{TabIndex==2?'active':''}}" bindtap="_selectTab" data-index='2'>关注</view>
+  </view>
+    <!-- 菜单列表 -->
+    <view>
+      <!-- 菜单列表 -->
+      <view  style="display:{{TabIndex==0?'block':'none'}}">
+        <!-- 没有东西 -->
+        <view wx:if="{{ !true }}" class="no-pbmenu">
+          <image src="../../static/my/img01.jpg"></image>
+          <view>您还没发布过菜单哦</view>
+        </view>
+        <!-- 有东西 -->
+        <view class="hot-recipe-list" wx:else>
+          <block wx:for="{{ recipes }}" wx:key="_id">
+            <view class="hot-recipe-list-item" bindlongpress="_delStyle" data-index="{{ index }}">
+              <!-- 图片 -->
+              <image src="{{ item.menu_img[0]}}"></image>
+              <!-- 菜品及浏览次数 -->
+              <view class="hot-recipe-list-item-info">
+                <view class="left">
+                  <view>{{item.menu_name}}</view>
+                </view>
+                <view class="right">
+                  <image src="../../imgs/airs.png"></image>
+                  <text>{{item.menu_view}}</text>
+                </view>
+              </view>
+            </view>
+
+          </block>
+        </view>
+        <!-- 加号 -->
+      <view class="jia" bindtap="_jia">
+        <image src="../../static/my/jia.png"></image>
+      </view>
+      </view>
+      
+    </view>
+    <!-- 分类列表 -->
+    <view class="type-list" style="display:{{TabIndex==1?'block':'none'}}">
+      <block wx:for="{{ types }}" wx:key="_id">
+        <view class="list-item">
+          <image src="../../static/my/type01.jpg"></image>
+          <text>{{ item.cateName }}</text>
+          <image class="onlyimage" src="../../static/my/next.jpg"></image>
+        </view>
+      </block>
+    </view>
+    <!-- 关注列表 -->
+    <view  style="display:{{TabIndex==2?'block':'none'}}">
+      <!-- 没有关注 -->
+      <view class="no-follow" wx:if="{{ lists.length <=0 }}">
+        <image src="../../static/my/nofollow.jpg"></image>
+        <view>您还没关注哦</view>
+      </view>
+      <!-- 关注菜单 -->
+      <view wx:else>
+        <block wx:for="{{ collectList }}" wx:key="*this">
+          <view class="list" bindtap="_goDetail" data-id="{{item[0]._id}}" data-name="{{item[0].menu_name}}">
+            <image src="{{ item[0].menu_img[0] }}" class="recipe-image"></image>
+            <!-- 基本信息 -->
+            <view class="list-info">
+              <view class="list-name">{{ item[0].menu_name }}</view>
+              <view class="list-info-userinfo">
+                <image src="{{ item[0].userInfo.avatarUrl }}"></image>
+                <text>{{ item[0].userInfo.nickName }}</text>
+              </view>
+              <view class="xing">
+                <!-- 星星 -->
+                <image wx:if="{{item[0].menu_collect===0}}" src="../../static/list/xing0.png"></image>
+            <image wx:elif="{{item[0].menu_collect>0&&item[0].menu_collect<=100}}" src="../../static/list/xing1.png"></image>
+            <image wx:elif="{{item[0].menu_collect>100&&item[0].menu_collect<=150}}" src="../../static/list/xing2.png"></image>
+            <image wx:elif="{{item[0].menu_collect>150&&item[0].menu_collect<=200}}" src="../../static/list/xing3.png"></image>
+            <image wx:elif="{{item[0].menu_collect>200&&item[0].menu_collect<=250}}" src="../../static/list/xing4.png"></image>
+            <image wx:else src="../../static/list/xing5.png"></image>
+              </view>
+              <view class="number">
+                <view>
+                  <image src="../../static/list/followed.png"></image>
+                  <text>{{ item[0].menu_collect}}</text>
+                </view>
+                <view>
+                  <image src="../../static/list/airs.png"></image>
+                  <text>{{ item[0].menu_view }}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+
+  </view>
+
+
+</view>

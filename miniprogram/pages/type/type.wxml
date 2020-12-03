@@ -1,0 +1,17 @@
+<view>
+  <!-- 顶部图片 -->
+  <view class="type-img">
+    <image src="../../static/type/banner.jpg"></image>
+  </view>
+
+  <!-- 分类列表 -->
+  <view class="type-list">
+    <block wx:for="{{ cateList }}" wx:key="_id">
+      <view class="list-item" bindtap="_goMenu" data-index="{{index}}">
+        <image src="../../static/type/type01.jpg"></image>
+        <text>{{ item.cateName }}</text>
+        <image class="onlyimage" src="../../static/my/next.jpg"></image>
+      </view>
+    </block>
+  </view>
+</view>

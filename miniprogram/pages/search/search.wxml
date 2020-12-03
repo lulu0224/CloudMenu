@@ -1,0 +1,41 @@
+<view>
+  <!-- 搜索栏 -->
+  <view class="search">
+    <view class="search-box">
+      <input type="text" placeholder="请输入菜谱名称" 
+      bindinput="_inputKeyword"
+      placeholder-class="p-box"/>
+      <icon type="search" color="#fff" size="30"
+      bindtap="_search"></icon>
+    </view>
+  </view>
+
+  <!-- 热门搜索  -->
+  <view class="hot-search">
+    <view class="hot-search-title">
+      热门搜索
+    </view>
+    <view class="hot-search-list">
+      <view wx:for="{{ hotSearchList}}" wx:key="_id" 
+      bindtap="_goDetail" data-id="{{item._id}}" data-name="{{item.menu_name}}"
+      >
+         {{item.menu_name}}
+      </view>
+    </view>
+  </view>
+  <!-- 近期搜索  -->
+  <view class="hot-search">
+    <view class="hot-search-title">
+      近期搜索
+    </view>
+    <view class="hot-search-list">
+      <view wx:for="{{ lastSearchList }}" wx:key="*this" bindtap="_lastSearchgo" data-keyword = "{{item}}">
+         {{item}}
+      </view>
+    </view>
+    <view wx:if="{{lastSearchList.length == 0}}">
+      暂无记录
+    </view>
+
+  </view>
+</view>
