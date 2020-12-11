@@ -42,7 +42,7 @@
         <!-- 有东西 -->
         <view class="hot-recipe-list" wx:else>
           <block wx:for="{{ recipes }}" wx:key="_id">
-            <view class="hot-recipe-list-item" bindlongpress="_delStyle" data-index="{{ index }}">
+            <view class="hot-recipe-list-item" bindlongpress="_delStyle" data-index="{{ index}}" bindtap="_goDetail" data-id="{{item._id}}">
               <!-- 图片 -->
               <image src="{{ item.menu_img[0]}}"></image>
               <!-- 菜品及浏览次数 -->
@@ -61,7 +61,7 @@
         </view>
         <!-- 加号 -->
       <view class="jia" bindtap="_jia">
-        <image src="../../static/my/jia.png"></image>
+        <image src="../../static/my/food.png"></image>
       </view>
       </view>
       
@@ -69,7 +69,7 @@
     <!-- 分类列表 -->
     <view class="type-list" style="display:{{TabIndex==1?'block':'none'}}">
       <block wx:for="{{ types }}" wx:key="_id">
-        <view class="list-item">
+        <view class="list-item" bindtap="_goMenu" data-index="{{index}}">
           <image src="../../static/my/type01.jpg"></image>
           <text>{{ item.cateName }}</text>
           <image class="onlyimage" src="../../static/my/next.jpg"></image>

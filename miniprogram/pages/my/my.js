@@ -134,6 +134,14 @@ Page({
     }
     wx.hideLoading()
   },
+  //点击菜品，去往相应的菜品详情
+  _goDetail:function(e){
+    let _id = e.currentTarget.dataset.id;
+    let menu_name = e.currentTarget.dataset.name;
+    wx.navigateTo({
+      url: `../detail/detail?id=${_id}&name=${menu_name}`,
+    })
+  },
   //获取本人发布的所有分类
   _getCateAll:async function(){
     wx.showLoading({
@@ -148,6 +156,14 @@ Page({
     })
     }
     wx.hideLoading()
+  },
+  //点击相应的分类，去往相应的分类列表页
+  _goMenu:function(e){
+    let index = e.currentTarget.dataset.index;
+    let {_id,cateName} = this.data.types[index]
+    wx.navigateTo({
+      url: `../list/list?id=${_id}&name=${cateName}`,
+    })
   },
   //获取本人关注的所有菜品
   _getMenuCollectAll:async function(p){

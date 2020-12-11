@@ -1,6 +1,8 @@
 <view wx:if="{{menuList.length}}">
   <block wx:for="{{ menuList }}" wx:key="_id">
-    <view class="list" data-id="{{item._id}}" data-name="{{item.menu_name}}">
+    <view class="list" data-id="{{item._id}}" data-name="{{item.menu_name}}"
+    bindtap="_goDetail" 
+    >
        <image src="{{ item.menu_img[0] }}" class="recipe-image"></image>
        <!-- 基本信息 -->
        <view class="list-info">
